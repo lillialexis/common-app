@@ -76,7 +76,7 @@ function temp_right_rcb(args) {
 
 function hazard_rcb(args) {
 
-    hvacControler.prototype.onHazardChanged(args.value);
+    hvacIndicator.onHazardChanged(args.value);
 }
 
 function seat_heat_right_rcb(args) {
