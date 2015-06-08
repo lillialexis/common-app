@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,18 +15,18 @@
  *
  */
 
-/**
+/** 
  * @module Services
  */
 
-/**
+/** 
  * Class provides AMB related functionality utilizing `tizen.vehicle` API for signals used in HTML applications. This component is usually initialized by {{#crossLink "Bootstrap"}}{{/crossLink}} class
  * and can be later accessed using {{#crossLink "Bootstrap/carIndicator:property"}}{{/crossLink}} property. Signals recognized by this class needs to be registered in property
- * {{#crossLink "CarIndicator/_mappingTable:property"}}{{/crossLink}}.
- *
+ * {{#crossLink "CarIndicator/_mappingTable:property"}}{{/crossLink}}. 
+ * 
  * To attach and detach to particular property register new callback object using {{#crossLink "Bootstrap/carIndicator:addListener"}}{{/crossLink}} method, e.g.:
- *
- *     var listenerId = bootstrap.carIndicator.addListener({
+ * 
+ *     var listenerId = bootstrap.carIndicator.addListener({ 
  *        onSteeringWheelAngleChanged: function(newValue){
  *           // Process new value
  *        },
@@ -34,7 +34,7 @@
  *           // Process new value
  *        }
  *     });
- *
+ * 
  *     // Unregister listener
  *     bootstrap.carIndicator.removeListener(listenerId);
  *
@@ -82,7 +82,7 @@
  * * Transmission
  *   * ShiftPosition
  * * ExteriorBrightness
- * * NightMode
+ * * NightMode 
  * * DirectionIndicationINST
  * * DirectionIndicationMS
  * * ACCommand
@@ -96,7 +96,7 @@
  * * HeatedSeatFLRequest
  * * FLHSDistrCmd
  * * FRHSDistrCmd
- *
+ * 
  * @class CarIndicator
  * @constructor
  */
@@ -124,8 +124,8 @@ function parseTirePressure(value) {
 	return floatValue;
 }
 
-/**
- * Array of registered listeners
+/** 
+ * Array of registered listeners 
  * @type Object
  * @property _listeners
  * @private
@@ -133,7 +133,7 @@ function parseTirePressure(value) {
 CarIndicator.prototype._listeners = {};
 
 /*
- * Array of registered listener IDs.
+ * Array of registered listener IDs. 
  * @type Array
  * @property _listenerIDs
  * @private
@@ -143,7 +143,7 @@ CarIndicator.prototype._listenerIDs = [];
 // Set by first call to addListener, it provides a way for the promise in getFunction to access _mappingTable.
 var GlobalSelf=0;
 
-/**
+/** 
  * Signal mapping table.
  * Each entry should form an object
  * @property _mappingTable
@@ -180,21 +180,21 @@ CarIndicator.prototype._mappingTable = {
 		},
 		zone : "000000",
 		curValue: 0,
-		getFunction : function() {
+		getFunction : function() { 
 			"use strict";
 			var zone = new Zone([]);
-			navigator.vehicle.steeringWheelAngle.get(zone).then(function(steeringWheelAngle)
+			navigator.vehicle.steeringWheelAngle.get(zone).then(function(steeringWheelAngle) 
 			 {
 				 // TODO: add != 0 conditional, or a try/catch.
 				 GlobalSelf._mappingTable["SteeringWheelAngle"].curValue = steeringWheelAngle.value;
 			 },
 			 function(error) {
 			  console.log("AMB: There was an error on the steeringWheelAngle get.");
-			 });
+			 });	
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
-			 navigator.vehicle.steeringWheelAngle.subscribe(function(steeringWheelAngle) {
+			 navigator.vehicle.steeringWheelAngle.subscribe(function(steeringWheelAngle) {	  
 			});
 		}
 
@@ -206,10 +206,10 @@ CarIndicator.prototype._mappingTable = {
 		subscribeName : "YawRate",
 		zone : "000000",
 		curValue: 0,
-		getFunction : function() {
+		getFunction : function() { 
 			"use strict";
 			var zone = new Zone([]);
-			  tizen.vehicle.yawRate.get(zone).then(function(YawRate)
+			  tizen.vehicle.yawRate.get(zone).then(function(YawRate) 
 			 {
 				 // TODO: add != 0 conditional, or a try/catch.
 				 GlobalSelf._mappingTable["YawRate"].curValue = YawRate.value;
@@ -217,15 +217,15 @@ CarIndicator.prototype._mappingTable = {
 			 },
 			 function(error) {
 			  console.log("AMB: There was an error on the YawRate get.");
-			 });
+			 });	
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
 			console.log("AMB: in YawRate steeringWheelAngle subscribeFunc.");
 			 tizen.vehicle.yawRate.subscribe(function(YawRate) {
 				console.log("AMB steeringWheelAngle  changed to: " + YawRate.value);
 		//		vehicle.steeringWheelAngle.unsubscribe(steeringWheelAngle);
-
+		  
 			});
 		}
 
@@ -237,25 +237,25 @@ CarIndicator.prototype._mappingTable = {
 		subscribeName : "WheelBrake",
 		zone : "000000",
 			curValue: 0,
-			getFunction : function() {
+			getFunction : function() { 
 				"use strict";
 				var zone = new Zone([]);
-				 navigator.vehicle.wheelBrake.get(zone).then(function(WheelBrake)
+				 navigator.vehicle.wheelBrake.get(zone).then(function(WheelBrake) 
 				 {
 					 // TODO: add != 0 conditional, or a try/catch.
 					 GlobalSelf._mappingTable["WheelBrake"].curValue = WheelBrake.value;
 				 },
 				 function(error) {
 				  console.log("AMB: There was an error on the WheelBrake get.");
-				 });
+				 });	
 			},
-			subscribeFunction : function() {
+			subscribeFunction : function() { 
 				"use strict";
-				 navigator.vehicle.wheelBrake.subscribe(function(WheelBrake) {
+				 navigator.vehicle.wheelBrake.subscribe(function(WheelBrake) {			  
 				});
 			}
 	},
-
+	
 	/* end steeringWheel game controler*/
 	"TyrePressureFLMS" : {
 		propertyName : "TyrePressureFLMS",
@@ -263,10 +263,10 @@ CarIndicator.prototype._mappingTable = {
 		conversionFunction : parseTirePressure,
 		zone : "000000",
 		curValue: 0,
-		getFunction : function() {
+		getFunction : function() { 
 			"use strict";
 			var zone = new Zone([]);
-			navigator.vehicle.tyrePressureFLMS.get(zone).then(function(tirePressure)
+			navigator.vehicle.tyrePressureFLMS.get(zone).then(function(tirePressure) 
 			 {
 				 // TODO: add != 0 conditional, or a try/catch.
 				 GlobalSelf._mappingTable["TyrePressureFLMS"].curValue = tirePressure.tyrePressureFLMS;
@@ -276,9 +276,9 @@ CarIndicator.prototype._mappingTable = {
 			  ambFailCnt--;
 				 });
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
-			  navigator.vehicle.tyrePressureFLMS.subscribe(function(tirePressure) {
+			  navigator.vehicle.tyrePressureFLMS.subscribe(function(tirePressure) {		  
 			});
 		}
 	},
@@ -288,11 +288,11 @@ CarIndicator.prototype._mappingTable = {
 		conversionFunction : parseTirePressure,
 		zone : "000000",
 		curValue: 0,
-		getFunction : function() {
+		getFunction : function() { 
 			"use strict";
 			var zone = new Zone([]);
 
-		    navigator.vehicle.tyrePressureFRMS.get(zone).then(function(tirePressure)
+		    navigator.vehicle.tyrePressureFRMS.get(zone).then(function(tirePressure) 
 			 {
 				 // TODO: add != 0 conditional, or a try/catch.
 				 GlobalSelf._mappingTable["TyrePressureFRMS"].curValue = tirePressure.tyrePressureFRMS;
@@ -301,9 +301,9 @@ CarIndicator.prototype._mappingTable = {
 			  console.log("AMB: There was an error on the TyrePressureFRMS get.");
 			 });
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
-			  navigator.vehicle.tyrePressureFRMS.subscribe(function(tirePressure) {
+			  navigator.vehicle.tyrePressureFRMS.subscribe(function(tirePressure) {		  
 			});
 		}
 	},
@@ -313,10 +313,10 @@ CarIndicator.prototype._mappingTable = {
 		conversionFunction : parseTirePressure,
 		zone : "000000",
 		curValue: 0,
-		getFunction : function() {
+		getFunction : function() { 
 			"use strict";
 			var zone = new Zone([]);
-		    navigator.vehicle.tyrePressureRLMS.get(zone).then(function(tirePressure)
+		    navigator.vehicle.tyrePressureRLMS.get(zone).then(function(tirePressure) 
 			 {
 				 // TODO: add != 0 conditional, or a try/catch.
 				 GlobalSelf._mappingTable["TyrePressureRLMS"].curValue = tirePressure.tyrePressureRLMS;
@@ -325,9 +325,9 @@ CarIndicator.prototype._mappingTable = {
 			  console.log("AMB: There was an error on the TyrePressureRLMS get.");
 			 });
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
-			  navigator.vehicle.tyrePressureRLMS.subscribe(function(tirePressure) {
+			  navigator.vehicle.tyrePressureRLMS.subscribe(function(tirePressure) {		  
 			});
 		}
 	},
@@ -337,10 +337,10 @@ CarIndicator.prototype._mappingTable = {
 		conversionFunction : parseTirePressure,
 		zone : "000000",
 		curValue: 0,
-		getFunction : function() {
+		getFunction : function() { 
 			"use strict";
 			var zone = new Zone([]);
-			   navigator.vehicle.tyrePressureRRMS.get(zone).then(function(tirePressure)
+			   navigator.vehicle.tyrePressureRRMS.get(zone).then(function(tirePressure) 
 				 {
 					 // TODO: add != 0 conditional, or a try/catch.
 					 GlobalSelf._mappingTable["TyrePressureRRMS"].curValue = tirePressure.tyrePressureRRMS;
@@ -349,9 +349,9 @@ CarIndicator.prototype._mappingTable = {
 				  console.log("AMB: There was an error on the TyrePressureRRMS get.");
 				 });
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
-			  navigator.vehicle.tyrePressureRRMS.subscribe(function(tirePressure) {
+			  navigator.vehicle.tyrePressureRRMS.subscribe(function(tirePressure) {		  
 			});
 		}
 	},
@@ -361,21 +361,21 @@ CarIndicator.prototype._mappingTable = {
 		subscribeName : "DoorStatus",
 		zone : "000000",
 		curValue: 0,
-		getFunction : function() {
+		getFunction : function() { 
 			"use strict";
 			var zone = new Zone([]);
-			 navigator.vehicle.ChildLockStatus.get(zone).then(function(childLock)
+			 navigator.vehicle.ChildLockStatus.get(zone).then(function(childLock) 
 			 {
 				 // TODO: add != 0 conditional, or a try/catch.
 				 GlobalSelf._mappingTable["ChildLock"].curValue = childLock.value;
 			 },
 			 function(error) {
 			  console.log("AMB: There was an error on the childLock get.");
-			 });
+			 });	
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
-			  navigator.vehicle.childLockStatus.subscribe(function(childLock) {
+			  navigator.vehicle.childLockStatus.subscribe(function(childLock) {		  
 			});
 		}
 	},
@@ -461,11 +461,11 @@ CarIndicator.prototype._mappingTable = {
 		conversionFunction : parseInteger,
 		zone : "000000",
 		curValue: 0,
-		setFunction : function(val) {
+		setFunction : function(val) { 
 			"use strict";
 			var zone = new Zone([]);
 			if(logit) { console.log("AMB: AirflowDirection-FLHSDistrCmd  setFunc called ."); }
-
+			
 			// Must change this to different access method: curValue = val;
 			navigator.vehicle.fLHSDistrCmd.set({"FLHSDistrCmd" : val}, zone).then(
 			 function()
@@ -474,12 +474,12 @@ CarIndicator.prototype._mappingTable = {
 			 },
 			 function(failure) {
 			  console.log("AMB: There was an error on the AirflowDirection-FLHSDistrCmd set.");
-			 }
+			 }	
 			);
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
-			  navigator.vehicle.fLHSDistrCmd.subscribe(function(speed) {
+			  navigator.vehicle.fLHSDistrCmd.subscribe(function(speed) {		  
 			});
 		}
 	},
@@ -495,16 +495,16 @@ CarIndicator.prototype._mappingTable = {
 		conversionFunction : parseInteger,
 		zone : "000000"
 	},
- 	"AmbientTemp" : {
+ 	"AmbientTemp" : { 
 		propertyName : "AmbientTemp",
 		callBackPropertyName : "outsideTemp",
 		conversionFunction : parseInteger,
 		zone : "000000",
 		curValue: 0,
-		getFunction : function() {
+		getFunction : function() { 
 			"use strict";
 			var zone = new Zone([]);
-		     navigator.vehicle.ambientTemp.get(zone).then(function(temp)
+		     navigator.vehicle.ambientTemp.get(zone).then(function(temp) 
 			 {
 				 // TODO: add != 0 conditional, or a try/catch.
 				 GlobalSelf._mappingTable["AmbientTemp"].curValue = temp.ambientTemp;
@@ -513,9 +513,9 @@ CarIndicator.prototype._mappingTable = {
 			  console.log("AMB: There was an error on the AmbientTemp get.");
 			 });
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
-			  navigator.vehicle.ambientTemp.subscribe(function(temp) {
+			  navigator.vehicle.ambientTemp.subscribe(function(temp) {	  
 			});
 		}
 	},
@@ -525,10 +525,10 @@ CarIndicator.prototype._mappingTable = {
 		conversionFunction : parseInteger,
 		zone : "000000",
 		curValue: 0,
-		getFunction : function() {
+		getFunction : function() { 
 			"use strict";
 			var zone = new Zone([]);
-		    navigator.vehicle.inCarTemp.get(zone).then(function(temp)
+		    navigator.vehicle.inCarTemp.get(zone).then(function(temp) 
 			 {
 				 // TODO: add != 0 conditional, or a try/catch.
 				 GlobalSelf._mappingTable["InCarTemp"].curValue = temp.inCarTemp;
@@ -537,9 +537,9 @@ CarIndicator.prototype._mappingTable = {
 			  console.log("AMB: There was an error on the InCarTemp get.");
 			 });
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
-			  navigator.vehicle.inCarTemp.subscribe(function(temp) {
+			  navigator.vehicle.inCarTemp.subscribe(function(temp) {		  
 			});
 		}
 	},
@@ -549,21 +549,21 @@ CarIndicator.prototype._mappingTable = {
 		conversionFunction : parseInteger,
 		zone : "000000",
 		curValue: 0,
-		getFunction : function() {
+		getFunction : function() { 
 			"use strict";
 			var zone = new Zone([]);
-		    navigator.vehicle.fuelLevelIndicatedMS.get(zone).then(function(level)
+		    navigator.vehicle.fuelLevelIndicatedMS.get(zone).then(function(level) 
 			 {
 				 // TODO: add != 0 conditional, or a try/catch.
 				 GlobalSelf._mappingTable["FuelLevelIndicatedMS"].curValue = level.fuelLevelIndicatedMS;
 			 },
 			 function(error) {
 			  console.log("AMB: There was an error on the FuelLevelIndicatedMS get.");
-			 });
+			 });	
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
-			  navigator.vehicle.fuelLevelIndicatedMS.subscribe(function(level) {
+			  navigator.vehicle.fuelLevelIndicatedMS.subscribe(function(level) {		  
 			});
 		}
 	},
@@ -573,10 +573,10 @@ CarIndicator.prototype._mappingTable = {
 		conversionFunction : parseInteger,
 		zone : "000000",
 		curValue: 0,
-		getFunction : function() {
+		getFunction : function() { 
 			"use strict";
 			var zone = new Zone([]);
-		    navigator.vehicle.distanceToEmpty.get(zone).then(function(dist)
+		    navigator.vehicle.distanceToEmpty.get(zone).then(function(dist) 
 			 {
 				 // TODO: add != 0 conditional, or a try/catch.
 				 GlobalSelf._mappingTable["DistanceToEmpty"].curValue = dist.distanceToEmpty;
@@ -585,9 +585,9 @@ CarIndicator.prototype._mappingTable = {
 			  console.log("AMB: There was an error on the DistanceToEmpty get.");
 			 });
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
-			  navigator.vehicle.distanceToEmpty.subscribe(function(dist) {
+			  navigator.vehicle.distanceToEmpty.subscribe(function(dist) {		  
 			});
 		}
 	},
@@ -597,10 +597,10 @@ CarIndicator.prototype._mappingTable = {
 		conversionFunction : parseInteger,
 		zone : "000000",
 		curValue: 0,
-		getFunction : function() {
+		getFunction : function() { 
 			"use strict";
 			var zone = new Zone([]);
-		     navigator.vehicle.oDORollingCount2101.get(zone).then(function(dist)
+		     navigator.vehicle.oDORollingCount2101.get(zone).then(function(dist) 
 			 {
 				 // TODO: add != 0 conditional, or a try/catch.
 				 GlobalSelf._mappingTable["ODORollingCount2101"].curValue = dist.oDORollingCount2101;
@@ -609,9 +609,9 @@ CarIndicator.prototype._mappingTable = {
 			  console.log("AMB: There was an error on the ODORollingCount2101 get.");
 			 });
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
-			  navigator.vehicle.oDORollingCount2101.subscribe(function(dist) {
+			  navigator.vehicle.oDORollingCount2101.subscribe(function(dist) {		  
 			});
 		}
 	},
@@ -644,10 +644,10 @@ CarIndicator.prototype._mappingTable = {
 		conversionFunction : parseInteger,
 		zone : "000000",
 		curValue: 0,
-		getFunction : function() {
+		getFunction : function() { 
 			"use strict";
 			var zone = new Zone([]);
-			 navigator.vehicle.vehicleSpeed.get(zone).then(function(vehicleSpeed)
+			 navigator.vehicle.vehicleSpeed.get(zone).then(function(vehicleSpeed) 
 			 {
 				 // TODO: add != 0 conditional, or a try/catch.
 				 GlobalSelf._mappingTable["VehicleSpeed"].curValue = vehicleSpeed.speed;
@@ -657,9 +657,9 @@ CarIndicator.prototype._mappingTable = {
 			  ambFailCnt--;
 			 });
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
-			  navigator.vehicle.vehicleSpeed.subscribe(function(vehicleSpeed) {
+			  navigator.vehicle.vehicleSpeed.subscribe(function(vehicleSpeed) {		  
 			});
 		}
 	},
@@ -719,29 +719,24 @@ CarIndicator.prototype._mappingTable = {
 		subscribeName : "DirectionIndicationINST",
 		zone : "000000",
 		curValue: 0,
-		setFunction : function(val) {
+		setFunction : function(val) { 
 			"use strict";
 			var zone = new Zone([]);
-			if (logit) console.log("AMB: called DirectionIndicationINST set with value " + val);
-
-			if (navigator.vehicle.directionIndicationINST === undefined) {
-				console.log("AMB: There was an error on the DirectionIndicationINST set.");
-			} else {
-				// Must change this to different access method: curValue = val;
-				navigator.vehicle.directionIndicationINST.set({"DirectionIndicationINST" : val}, zone).then(
-					function()
-					{
-						if(logit) console.log("AMB: DirectionIndicationINST set success.");
-					},
-					function(failure) {
-						console.log("AMB: There was an error on the DirectionIndicationINST set.");
-					}
-				);
-			}
+			if(logit) {console.log("AMB: called DirectionIndicationINST set with value "+val);}
+			// Must change this to different access method: curValue = val;
+			 navigator.vehicle.directionIndicationINST.set({"DirectionIndicationINST" : val}, zone).then(
+			 function()
+			 {
+				 if(logit) {console.log("AMB: DirectionIndicationINST  set success.");}
+			 },
+			 function(failure) {
+			  console.log("AMB: There was an error on the DirectionIndicationINST set.");
+			 }	
+			);
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
-			  navigator.vehicle.directionIndicationINST.subscribe(function(speed) {
+			  navigator.vehicle.directionIndicationINST.subscribe(function(speed) {  
 			});
 		}
 	},
@@ -751,29 +746,23 @@ CarIndicator.prototype._mappingTable = {
 		subscribeName : "DirectionIndicationMS",
 		zone : "000000",
 		curValue: 0,
-		setFunction : function(val) {
+		setFunction : function(val) { 
 			"use strict";
 			var zone = new Zone([]);
-			if (logit) console.log("AMB: called DirectionIndicationMS set with value " + val);
-
-			if (navigator.vehicle.directionIndicationMS === undefined) {
-				console.log("AMB: There was an error on the DirectionIndicationMS set.");
-			} else {
-				// Must change this to different access method: curValue = val;
-				navigator.vehicle.directionIndicationMS.set({"DirectionIndicationMS" : val}, zone).then(
-					function()
-					{
-						if(logit) console.log("AMB: DirectionIndicationMS set success.");
-					},
-					function(failure) {
-						console.log("AMB: There was an error on the DirectionIndicationMs set.");
-					}
-				);
-			}
+			// Must change this to different access method: curValue = val;
+		     navigator.vehicle.directionIndicationMS.set({"DirectionIndicationMS" : val}, zone).then(
+			 function()
+			 {
+				 if(logit) {console.log("AMB: DirectionIndicationMS  set success.");}
+			 },
+			 function(failure) {
+			  console.log("AMB: There was an error on the DirectionIndicationMS set.");
+			 }	
+		    );
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
-			  navigator.vehicle.directionIndicationMS.subscribe(function(speed) {
+			  navigator.vehicle.directionIndicationMS.subscribe(function(speed) {	  
 			});
 		}
 	},
@@ -783,7 +772,7 @@ CarIndicator.prototype._mappingTable = {
 		subscribeName : "ACCommand",
 		zone : "000000",
 		curValue: 0,
-		setFunction : function(val) {
+		setFunction : function(val) { 
 			"use strict";
 			var zone = new Zone([]);
 			if(logit) {console.log("AMB: called ACCommand set with value "+val);}
@@ -796,12 +785,12 @@ CarIndicator.prototype._mappingTable = {
 			 },
 			 function(failure) {
 			  console.log("AMB: There was an error on the ACCommand set.");
-			 }
+			 }	
 			);
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
-			  navigator.vehicle.aCCommand.subscribe(function(speed) {
+			  navigator.vehicle.aCCommand.subscribe(function(speed) {		  
 			});
 		}
 	},
@@ -810,7 +799,7 @@ CarIndicator.prototype._mappingTable = {
 		callBackPropertyName : "RecircReq",
 		subscribeName : "RecircReq",
 		zone : "000000",
-		setFunction : function(val) {
+		setFunction : function(val) { 
 			"use strict";
 			var zone = new Zone([]);
 			// Must change this to different access method: curValue = val;
@@ -821,14 +810,14 @@ CarIndicator.prototype._mappingTable = {
 				 },
 				 function(failure) {
 				  console.log("AMB: There was an error on the RecircReq set.");
-				 }
+				 }	
 			);
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
 			console.log("AMB: in RecircReq  subscribeFunc.");
 			  navigator.vehicle.recircReq.subscribe(function(speed) {
-				console.log("AMB RecircReq  changed to: " + speed.value);
+				console.log("AMB RecircReq  changed to: " + speed.value);		  
 			});
 		}
 	},
@@ -837,7 +826,7 @@ CarIndicator.prototype._mappingTable = {
 		callBackPropertyName : "FrontTSetRightCmd",
 		subscribeName : "FrontTSetRightCmd",
 		zone : "000000",
-		setFunction : function(val) {
+		setFunction : function(val) { 
 			"use strict";
 			var zone = new Zone([]);
 			if(logit) {console.log("AMB: called FrontTSetRightCmd set with value "+val);}
@@ -850,12 +839,12 @@ CarIndicator.prototype._mappingTable = {
 			 },
 			 function(failure) {
 			  console.log("AMB: There was an error on the FrontTSetRightCmd set.");
-			 }
+			 }	
 			);
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
-			  navigator.vehicle.frontTSetRightCmd.subscribe(function(speed) {
+			  navigator.vehicle.frontTSetRightCmd.subscribe(function(speed) {		  
 			});
 		}
 	},
@@ -864,7 +853,7 @@ CarIndicator.prototype._mappingTable = {
 		callBackPropertyName : "FrontTSetLeftCmd",
 		subscribeName : "FrontTSetLeftCmd",
 		zone : "000000",
-		setFunction : function(val) {
+		setFunction : function(val) { 
 			"use strict";
 			var zone = new Zone([]);
 			if(logit) {console.log("AMB: called FrontTSetLeftCmd set with value "+val);}
@@ -876,12 +865,12 @@ CarIndicator.prototype._mappingTable = {
 			 },
 			 function(failure) {
 			  console.log("AMB: There was an error on the FrontTSetLeftCmd set.");
-			 }
+			 }	
 			);
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
-			  navigator.vehicle.frontTSetLeftCmd.subscribe(function(speed) {
+			  navigator.vehicle.frontTSetLeftCmd.subscribe(function(speed) {		  
 			});
 		}
 	},
@@ -891,7 +880,7 @@ CarIndicator.prototype._mappingTable = {
 		subscribeName : "FrontBlwrSpeedCmd",
 		zone : "000000",
 		curValue: 0,
-		setFunction : function(val) {
+		setFunction : function(val) { 
 			"use strict";
 			var zone = new Zone([]);
 			// Must change this to different access method: curValue = val;
@@ -903,14 +892,14 @@ CarIndicator.prototype._mappingTable = {
 			 },
 			 function(failure) {
 			  console.log("AMB: There was an error on the FrontBlwrSpeedCmd set.");
-			 }
+			 }	
 			);
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
 			console.log("AMB: in FrontBlwrSpeedCmd  subscribeFunc.");
 			  navigator.vehicle.frontBlwrSpeedCmd.subscribe(function(speed) {
-				console.log("AMB FrontBlwrSpeedCmd  changed to: " + speed.value);
+				console.log("AMB FrontBlwrSpeedCmd  changed to: " + speed.value);		  
 			});
 		}
 	},
@@ -925,7 +914,7 @@ CarIndicator.prototype._mappingTable = {
 		callBackPropertyName : "HeatedSeatFRRequest",
 		subscribeName : "HeatedSeatFRRequest",
 		zone : "000000",
-		setFunction : function(val) {
+		setFunction : function(val) { 
 			"use strict";
 			var zone = new Zone([]);
 			if(logit) {console.log("AMB: called HeatedSeatFRRequest set with value "+val);}
@@ -937,14 +926,14 @@ CarIndicator.prototype._mappingTable = {
 			 },
 			 function(failure) {
 			  console.log("AMB: There was an error on the HeatedSeatFRRequest set.");
-			 }
+			 }	
 			);
 		},
-		getFunction : function() {
+		getFunction : function() { 
 			"use strict";
 			var zone = new Zone([]);
 			if (typeof(navigator.vehicle)!=="undefined") {
-			   navigator.vehicle.heatedSeatFRRequest.get(zone).then(function(value)
+			   navigator.vehicle.heatedSeatFRRequest.get(zone).then(function(value) 
 				 {
 					 // TODO: add != 0 conditional, or a try/catch.
 					 GlobalSelf._mappingTable["HeatedSeatFRRequest"].curValue = value.value;
@@ -954,9 +943,9 @@ CarIndicator.prototype._mappingTable = {
 				 });
 			 }
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
-			  navigator.vehicle.heatedSeatFRRequest.subscribe(function(speed) {
+			  navigator.vehicle.heatedSeatFRRequest.subscribe(function(speed) {	  
 			});
 		}
 	},
@@ -971,7 +960,7 @@ CarIndicator.prototype._mappingTable = {
 		callBackPropertyName : "HeatedSeatFLRequest",
 		subscribeName : "HeatedSeatFLRequest",
 		zone : "000000",
-		setFunction : function(val) {
+		setFunction : function(val) { 
 			"use strict";
 			var zone = new Zone([]);
 			if(logit) {console.log("AMB: called HeatedSeatFLRequest set with value "+val);}
@@ -983,12 +972,12 @@ CarIndicator.prototype._mappingTable = {
 				 },
 				 function(failure) {
 				  console.log("AMB: There was an error on the HeatedSeatFLRequest set.");
-				 }
+				 }	
 			);
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
-			  navigator.vehicle.heatedSeatFLRequest.subscribe(function(speed) {
+			  navigator.vehicle.heatedSeatFLRequest.subscribe(function(speed) {	  
 			});
 		}
 	},
@@ -998,7 +987,7 @@ CarIndicator.prototype._mappingTable = {
 		subscribeName : "FLHSDistrCmd",
 		zone : "000000",
 		curValue: 0,
-		setFunction : function(val) {
+		setFunction : function(val) { 
 			"use strict";
 			var zone = new Zone([]);
 			// Must change this to different access method: curValue = val;
@@ -1009,12 +998,12 @@ CarIndicator.prototype._mappingTable = {
 			 },
 			 function(failure) {
 			  console.log("AMB: There was an error on the FLHSDistrCmd set.");
-				 }
+				 }	
 			);
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
-			  navigator.vehicle.fLHSDistrCmd.subscribe(function(speed) {
+			  navigator.vehicle.fLHSDistrCmd.subscribe(function(speed) {	  
 			});
 		}
 	},
@@ -1024,7 +1013,7 @@ CarIndicator.prototype._mappingTable = {
 		subscribeName : "FRHSDistrCmd",
 		zone : "000000",
 		curValue: 0,
-		setFunction : function(val) {
+		setFunction : function(val) { 
 			"use strict";
 			var zone = new Zone([]);
 			// Must change this to different access method: curValue = val;
@@ -1035,18 +1024,18 @@ CarIndicator.prototype._mappingTable = {
 			 },
 			 function(failure) {
 			  console.log("AMB: There was an error on the FRHSDistrCmd set.");
-			 }
+			 }	
 			);
 		},
-		subscribeFunction : function() {
+		subscribeFunction : function() { 
 			"use strict";
-			  navigator.vehicle.fRHSDistrCmd.subscribe(function(speed) {
+			  navigator.vehicle.fRHSDistrCmd.subscribe(function(speed) {  
 			});
 		}
 	}
 };
 
-/**
+/** 
  * This method adds listener object for car events. Object should define function callbacks taking signal names from mapping table, e.g.:
  * @example
  *     {
@@ -1063,7 +1052,7 @@ CarIndicator.prototype.addListener = function(aCallbackObject) {
 	"use strict";
 	var id = Math.floor(Math.random() * 1000000);
 	cbID = id; // For use by testFunc().
-
+	
 	var self = this;
 	GlobalSelf = this;
 	this._listeners[id] = aCallbackObject;
@@ -1077,17 +1066,17 @@ CarIndicator.prototype.addListener = function(aCallbackObject) {
 	 * 	"VehicleSpeed" : {
 		propertyName : "VehicleSpeed",
 		callBackPropertyName : "speed",
-
+		
 		in aCallbackObject:
 		    onSpeedChanged : function(newValue) {
             dashBoardIndicator.onSpeedChanged(newValue);
-
+		
 		Outer tag (in this case "VehicleSpeed") needs to match the property name.
 	 */
 	for ( var i in aCallbackObject) {
 		if (aCallbackObject.hasOwnProperty(i)) {
 			var prop = i.replace("on", "").replace("Changed", "");  /* prop goes from "onSpeedChanged" to "Speed". */
-
+			
 			for ( var signal in this._mappingTable) {		/* signal will have the top level name in the object, such as  "VehicleSpeed". */
 				if (this._mappingTable.hasOwnProperty(signal)) {
 					var mapping = this._mappingTable[signal];
@@ -1103,10 +1092,10 @@ CarIndicator.prototype.addListener = function(aCallbackObject) {
 				//		if (typeof (tizen) !== 'undefined') {
 							console.log(tizen);
 
-							if (!(subscribeName.toString().trim().toLowerCase() === "nightmode" && id === this._listenerIDs[0]))
+							if (!(subscribeName.toString().trim().toLowerCase() === "nightmode" && id === this._listenerIDs[0])) 
 							{
 								var setUpData = 0;//tizen.vehicle.get(subscribeName, zone);
-
+								
 								// New XW API subscribe call:
 								if( mapping.subscribeFunction !== undefined)
 								{
@@ -1116,7 +1105,7 @@ CarIndicator.prototype.addListener = function(aCallbackObject) {
 									var o = {zone: '000000', signalAndValue: { signalName: signal, signalVal: mapping.curValue }  };
 									if(logit) { console.log("AMB: calling subscribeFunction and onUpdate for "+signal.toString()+" "+ mapping.curValue+" id: "+id); }
 
-									self.onDataUpdate(o, self, id);
+									self.onDataUpdate(o, self, id);	
 								}
 								else
 								{
@@ -1133,7 +1122,7 @@ CarIndicator.prototype.addListener = function(aCallbackObject) {
 			//			} else {
 			//				console.warn("AMB: Tizen API is not available, cannot subscribe to signal", signal);
 			//			}
-
+						
 					}
 				}
 			}
@@ -1142,7 +1131,7 @@ CarIndicator.prototype.addListener = function(aCallbackObject) {
 	console.log("addListener End");
 	return id;
 };
-/**
+/** 
  * This method is call as callback if data oon tizen.vehicle was change onDataUpdate
  * @method onDataUpdate
  * @param data {object} object whit new data.
@@ -1164,9 +1153,9 @@ CarIndicator.prototype.onDataUpdate = function(data, self, lisenersID) {
 
 					for ( var element in self._mappingTable) {
 						if (self._mappingTable.hasOwnProperty(element)) {
-
+						
 							// ORG: if (self._mappingTable[element].propertyName.toLowerCase() === property.toLowerCase()) {
-							if(typeof(property) !== 'undefined')
+							if(typeof(property) !== 'undefined') 
 							{
 							//	console.log("AMB: onUpdate upper compare: "+self._mappingTable[element].propertyName+" "+data[property].signalName);
 							  if (self._mappingTable[element].propertyName.toLowerCase() === data[property].signalName.toLowerCase()) {
@@ -1202,7 +1191,7 @@ CarIndicator.prototype.onDataUpdate = function(data, self, lisenersID) {
 							//console.log("AMB: onDataUpdate value, oldvalue: "+value +" "+oldValue);
 
 						    if (oldValue !== value || data[property].signalName.toUpperCase() === "nightMode".toUpperCase()) {
-
+						
 						    if(logit) { console.info("AMB property '" + data[property].signalName + "' has changed to new value:" + value); }
 							self.status[mapping.callBackPropertyName] = value;
 
@@ -1250,7 +1239,7 @@ CarIndicator.prototype.onDataUpdate = function(data, self, lisenersID) {
 	}
 };
 
-/**
+/** 
  * This method removes previosly added listener object. Use WatchID returned from addListener method.
  * @method removeListener
  * @param aId {Integer} WatchID.
@@ -1281,8 +1270,8 @@ CarIndicator.prototype.removeListener = function(aId) {
 	this._listeners[aId] = undefined;
 };
 
-/**
- * status object
+/** 
+ * status object 
  * @property status
  * @type Object
  * @private
@@ -1321,7 +1310,7 @@ CarIndicator.prototype.status = {
 	exteriorBrightness : 1000
 };
 
-/**
+/** 
  * This method return status object in callback
  * @method getStatus
  * @param callback {function} callback function.
@@ -1331,7 +1320,7 @@ CarIndicator.prototype.getStatus = function(callback) {
 	callback(this.status);
 };
 
-/**
+/** 
  * this method set status for property in tizen.vehicle and status object
  * @method setStatus
  * @param indicator {string} indicator name.
@@ -1342,7 +1331,7 @@ CarIndicator.prototype.getStatus = function(callback) {
 CarIndicator.prototype.setStatus = function(indicator, newValue, callback, zone) {
 	"use strict";
 	var mappingElement, mappingProperty;
-
+	
 	for ( var element in this._mappingTable) {
 		if (this._mappingTable.hasOwnProperty(element)) {
 			mappingProperty = undefined;
@@ -1369,7 +1358,7 @@ CarIndicator.prototype.setStatus = function(indicator, newValue, callback, zone)
             this.status[mappingElement.callBackPropertyName] = newValue;
 
             var callbackName = "on" + mappingElement.callBackPropertyName[0].toUpperCase() + mappingElement.callBackPropertyName.substring(1) + "Changed";
-
+            
             for(var l in this._listenerIDs){
             	var listener=this._listeners[this._listenerIDs[l]];
 
@@ -1379,7 +1368,7 @@ CarIndicator.prototype.setStatus = function(indicator, newValue, callback, zone)
 
             /*
             var listener=this._listeners[this._listenerIDs[0]];
-            if (typeof (listener[callbackName]) === 'function')
+            if (typeof (listener[callbackName]) === 'function') 
                 listener[callbackName](newValue);
             */
         }
@@ -1388,7 +1377,7 @@ CarIndicator.prototype.setStatus = function(indicator, newValue, callback, zone)
 		//tizen.vehicle.set(objectName, propertyValue, function(msg) {
 		//	console.error("Set error: " + msg);
 		//});
-
+        
         // XW HVAC April 2015: Call the object's setFunction.
         if( this._mappingTable[mappingProperty].setFunction !== undefined)
         {
@@ -1397,14 +1386,14 @@ CarIndicator.prototype.setStatus = function(indicator, newValue, callback, zone)
         }
         else
         {
-            console.log("AMB: no setFunction defined for "+mappingProperty);
+            console.log("AMB: no setFunction defined for "+mappingProperty);  	
         }
 	}
 	else
 	{
 		console.log("TEMP: setStatus indicator not defined: "+indicator);
 	}
-
+    
 	if (!!callback) {
 		callback();
 	}
@@ -1414,70 +1403,70 @@ CarIndicator.prototype.setStatus = function(indicator, newValue, callback, zone)
 // flux, so revisit this when a "final" AMB version is selected.
 var carIndicator = new CarIndicator();
 
-uiUpdateFunc = function() {
-
+uiUpdateFunc = function() {	
+	
 	var o;
-
+	
 	if(logit) {console.info("AMB: uiUpdateFunc 11 called.");}
-
+	
 	// If Speed and TyrePressure AMB get calls are failing, try N times then stop filling up the log with error messages.
 	if (ambFailCnt > 0) {
 		GlobalSelf._mappingTable["VehicleSpeed"].getFunction();
 		if(logit) { console.log("AMB: testFunc VehicleSpeed, get rets: " + GlobalSelf._mappingTable["VehicleSpeed"].curValue); }
 		o = {zone: '000000', signalAndValue: { signalName: "VehicleSpeed", signalVal: GlobalSelf._mappingTable["VehicleSpeed"].curValue }  };
 		GlobalSelf.onDataUpdate(o, GlobalSelf, cbID);
-
+		
 		GlobalSelf._mappingTable["TyrePressureFLMS"].getFunction();
 		if(logit) {console.log("AMB: testFunc TyrePressureFLMS, get rets: " + GlobalSelf._mappingTable["TyrePressureFLMS"].curValue); }
 		o = {zone: '000000', signalAndValue: { signalName: "TyrePressureFLMS", signalVal: GlobalSelf._mappingTable["TyrePressureFLMS"].curValue }  };
 		GlobalSelf.onDataUpdate(o, GlobalSelf, cbID);
-
+		
 		GlobalSelf._mappingTable["TyrePressureFRMS"].getFunction();
 		if(logit) { console.log("AMB: testFunc TyrePressureFRMS, get rets: " + GlobalSelf._mappingTable["TyrePressureFRMS"].curValue); }
 		o = {zone: '000000', signalAndValue: { signalName: "TyrePressureFRMS", signalVal: GlobalSelf._mappingTable["TyrePressureFRMS"].curValue }  };
 		GlobalSelf.onDataUpdate(o, GlobalSelf, cbID);
-
+		
 		GlobalSelf._mappingTable["TyrePressureRLMS"].getFunction();
 		if(logit) {console.log("AMB: testFunc TyrePressureRLMS, get rets: " + GlobalSelf._mappingTable["TyrePressureRLMS"].curValue); }
 		o = {zone: '000000', signalAndValue: { signalName: "TyrePressureRLMS", signalVal: GlobalSelf._mappingTable["TyrePressureRLMS"].curValue }  };
 		GlobalSelf.onDataUpdate(o, GlobalSelf, cbID);
-
+		
 		GlobalSelf._mappingTable["TyrePressureRRMS"].getFunction();
 		if(logit) {console.log("AMB: testFunc TyrePressureRRMS, get rets: " + GlobalSelf._mappingTable["TyrePressureRRMS"].curValue); }
 		o = {zone: '000000', signalAndValue: { signalName: "TyrePressureRRMS", signalVal: GlobalSelf._mappingTable["TyrePressureRRMS"].curValue }  };
 		GlobalSelf.onDataUpdate(o, GlobalSelf, cbID);
-
+		
 		GlobalSelf._mappingTable["ODORollingCount2101"].getFunction();
 		if(logit) {console.log("AMB: testFunc ODORollingCount2101, get rets: " + GlobalSelf._mappingTable["ODORollingCount2101"].curValue); }
 		o = {zone: '000000', signalAndValue: { signalName: "ODORollingCount2101", signalVal: GlobalSelf._mappingTable["ODORollingCount2101"].curValue }  };
 		GlobalSelf.onDataUpdate(o, GlobalSelf, cbID);
-
+		
 		GlobalSelf._mappingTable["FuelLevelIndicatedMS"].getFunction();
 		if(logit) {console.log("AMB: testFunc FuelLevelIndicatedMS, get rets: " + GlobalSelf._mappingTable["FuelLevelIndicatedMS"].curValue); }
 		o = {zone: '000000', signalAndValue: { signalName: "FuelLevelIndicatedMS", signalVal: GlobalSelf._mappingTable["FuelLevelIndicatedMS"].curValue }  };
 		GlobalSelf.onDataUpdate(o, GlobalSelf, cbID);
-
+		
 		GlobalSelf._mappingTable["AmbientTemp"].getFunction();
 		if(logit) {console.log("AMB: testFunc AmbientTemp, get rets: " + GlobalSelf._mappingTable["AmbientTemp"].curValue); }
 		o = {zone: '000000', signalAndValue: { signalName: "AmbientTemp", signalVal: GlobalSelf._mappingTable["AmbientTemp"].curValue }  };
 		GlobalSelf.onDataUpdate(o, GlobalSelf, cbID);
-
+		
 		GlobalSelf._mappingTable["DistanceToEmpty"].getFunction();
 		if(logit) {console.log("AMB: testFunc DistanceToEmpty, get rets: " + GlobalSelf._mappingTable["DistanceToEmpty"].curValue); }
 		o = {zone: '000000', signalAndValue: { signalName: "DistanceToEmpty", signalVal: GlobalSelf._mappingTable["DistanceToEmpty"].curValue }  };
-		GlobalSelf.onDataUpdate(o, GlobalSelf, cbID);
-
+		GlobalSelf.onDataUpdate(o, GlobalSelf, cbID);	
+		
 		GlobalSelf._mappingTable["InCarTemp"].getFunction();
 		if(logit) {console.log("AMB: testFunc InCarTemp, get rets: " + GlobalSelf._mappingTable["InCarTemp"].curValue); }
 		o = {zone: '000000', signalAndValue: { signalName: "InCarTemp", signalVal: GlobalSelf._mappingTable["InCarTemp"].curValue }  };
-		GlobalSelf.onDataUpdate(o, GlobalSelf, cbID);
+		GlobalSelf.onDataUpdate(o, GlobalSelf, cbID);	
 	}
 	else if(ambFailCnt == 0)
 	{
 		console.log("AMB system not running; check installation, and that ambd is running.");
 		ambFailCnt = -1;
 	}
-
+	
 };
 
 var uiUpdateTimer = setInterval(uiUpdateFunc, 2000);
