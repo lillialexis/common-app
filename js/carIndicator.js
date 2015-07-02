@@ -190,7 +190,7 @@ CarIndicator.prototype._mappingTable = {
 							GlobalSelf._mappingTable["SteeringWheelAngle"].curValue = steeringWheelAngle.value;
 						},
 						function (error) {
-							console.log("AMB: There was an error on the steeringWheelAngle get: " + error);
+							console.log("AMB: There was an error on the steeringWheelAngle get: " + error.message);
 						});
 			} catch(ex) {
 				console.log("AMB: There was an error on the steeringWheelAngle get: ", ex);
@@ -224,7 +224,7 @@ CarIndicator.prototype._mappingTable = {
 							console.log("AMB: YawRate  get sees value as: " + YawRate.value);
 						},
 						function (error) {
-							console.log("AMB: There was an error on the YawRate get: " + error);
+							console.log("AMB: There was an error on the YawRate get: " + error.message);
 						});
 			} catch (ex) {
 				console.log("AMB: There was an error on the YawRate get: ", ex);
@@ -260,7 +260,7 @@ CarIndicator.prototype._mappingTable = {
 								GlobalSelf._mappingTable["WheelBrake"].curValue = WheelBrake.value;
 							},
 							function (error) {
-								console.log("AMB: There was an error on the WheelBrake get: " + error);
+								console.log("AMB: There was an error on the WheelBrake get: " + error.message);
 							});
 				} catch (ex) {
 					console.log("AMB: There was an error on the WheelBrake get: ", ex);
@@ -292,7 +292,7 @@ CarIndicator.prototype._mappingTable = {
 							GlobalSelf._mappingTable["TyrePressureFLMS"].curValue = tirePressure.tyrePressureFLMS;
 						},
 						function (error) {
-							console.log("AMB: There was an error on the TyrePressureFLMS get: " + error);
+							console.log("AMB: There was an error on the TyrePressureFLMS get: " + error.message);
 							ambFailCnt--;
 						});
 			} catch (ex) {
@@ -324,7 +324,7 @@ CarIndicator.prototype._mappingTable = {
 							GlobalSelf._mappingTable["TyrePressureFRMS"].curValue = tirePressure.tyrePressureFRMS;
 						},
 						function (error) {
-							console.log("AMB: There was an error on the TyrePressureFRMS get: " + error);
+							console.log("AMB: There was an error on the TyrePressureFRMS get: " + error.message);
 						});
 			} catch (ex) {
 				console.log("AMB: There was an error on the TyrePressureFRMS get: ", ex);
@@ -355,7 +355,7 @@ CarIndicator.prototype._mappingTable = {
 							GlobalSelf._mappingTable["TyrePressureRLMS"].curValue = tirePressure.tyrePressureRLMS;
 						},
 						function (error) {
-							console.log("AMB: There was an error on the TyrePressureRLMS get: " + error);
+							console.log("AMB: There was an error on the TyrePressureRLMS get: " + error.message);
 						});
 			} catch (ex) {
 				console.log("AMB: There was an error on the TyrePressureRLMS get: ", ex);
@@ -386,7 +386,7 @@ CarIndicator.prototype._mappingTable = {
 							GlobalSelf._mappingTable["TyrePressureRRMS"].curValue = tirePressure.tyrePressureRRMS;
 						},
 						function (error) {
-							console.log("AMB: There was an error on the TyrePressureRRMS get: " + error);
+							console.log("AMB: There was an error on the TyrePressureRRMS get: " + error.message);
 						});
 			} catch (ex) {
 				console.log("AMB: There was an error on the TyrePressureRRMS get: ", ex);
@@ -417,7 +417,7 @@ CarIndicator.prototype._mappingTable = {
 							GlobalSelf._mappingTable["ChildLock"].curValue = childLock.value;
 						},
 						function (error) {
-							console.log("AMB: There was an error on the childLock get: " + error);
+							console.log("AMB: There was an error on the childLock get: " + error.message);
 						});
 			} catch (ex) {
 				console.log("AMB: There was an error on the childLock get: ", ex);
@@ -544,7 +544,7 @@ CarIndicator.prototype._mappingTable = {
 							}
 						},
 						function (failure) {
-							console.log("AMB: There was an error on the AirflowDirection-FLHSDistrCmd set: " + failure);
+							console.log("AMB: There was an error on the AirflowDirection-FLHSDistrCmd set: " + failure.message);
 						}
 				);
 			} catch (ex) {
@@ -590,7 +590,7 @@ CarIndicator.prototype._mappingTable = {
 							GlobalSelf._mappingTable["AmbientTemp"].curValue = temp.ambientTemp;
 						},
 						function (error) {
-							console.log("AMB: There was an error on the AmbientTemp get: " + error);
+							console.log("AMB: There was an error on the AmbientTemp get: " + error.message);
 						});
 			} catch (ex) {
 				console.log("AMB: There was an error on the AmbientTemp get: ", ex);
@@ -621,7 +621,7 @@ CarIndicator.prototype._mappingTable = {
 							GlobalSelf._mappingTable["InCarTemp"].curValue = temp.inCarTemp;
 						},
 						function (error) {
-							console.log("AMB: There was an error on the InCarTemp get: " + error);
+							console.log("AMB: There was an error on the InCarTemp get: " + error.message);
 						});
 			} catch (ex) {
 				console.log("AMB: There was an error on the InCarTemp get: ", ex);
@@ -652,7 +652,7 @@ CarIndicator.prototype._mappingTable = {
 							GlobalSelf._mappingTable["FuelLevelIndicatedMS"].curValue = level.fuelLevelIndicatedMS;
 						},
 						function (error) {
-							console.log("AMB: There was an error on the FuelLevelIndicatedMS get: " + error);
+							console.log("AMB: There was an error on the FuelLevelIndicatedMS get: " + error.message);
 						});
 			} catch (ex) {
 				console.log("AMB: There was an error on the FuelLevelIndicatedMS get: ", ex);
@@ -683,7 +683,7 @@ CarIndicator.prototype._mappingTable = {
 							GlobalSelf._mappingTable["DistanceToEmpty"].curValue = dist.distanceToEmpty;
 						},
 						function (error) {
-							console.log("AMB: There was an error on the DistanceToEmpty get: " + error);
+							console.log("AMB: There was an error on the DistanceToEmpty get: " + error.message);
 						});
 			} catch (ex) {
 				console.log("AMB: There was an error on the DistanceToEmpty get: ", ex);
@@ -714,7 +714,7 @@ CarIndicator.prototype._mappingTable = {
 							GlobalSelf._mappingTable["ODORollingCount2101"].curValue = dist.oDORollingCount2101;
 						},
 						function (error) {
-							console.log("AMB: There was an error on the ODORollingCount2101 get: " + error);
+							console.log("AMB: There was an error on the ODORollingCount2101 get: " + error.message);
 						});
 			} catch (ex) {
 				console.log("AMB: There was an error on the ODORollingCount2101 get: ", ex);
@@ -771,7 +771,7 @@ CarIndicator.prototype._mappingTable = {
 							GlobalSelf._mappingTable["VehicleSpeed"].curValue = vehicleSpeed.speed;
 						},
 						function (error) {
-							console.log("AMB: There was an error on the speed get: " + error);
+							console.log("AMB: There was an error on the speed get: " + error.message);
 							ambFailCnt--;
 						});
 			} catch (ex) {
@@ -865,7 +865,7 @@ CarIndicator.prototype._mappingTable = {
 							}
 						},
 						function (failure) {
-							console.log("AMB: There was an error on the DirectionIndicationINST set: " + failure);
+							console.log("AMB: There was an error on the DirectionIndicationINST set: " + failure.message);
 						}
 				);
 			} catch (ex) {
@@ -901,7 +901,7 @@ CarIndicator.prototype._mappingTable = {
 							}
 						},
 						function (failure) {
-							console.log("AMB: There was an error on the DirectionIndicationMS set: " + failure);
+							console.log("AMB: There was an error on the DirectionIndicationMS set: " + failure.message);
 						}
 				);
 			} catch (ex) {
@@ -941,7 +941,7 @@ CarIndicator.prototype._mappingTable = {
 							}
 						},
 						function (failure) {
-							console.log("AMB: There was an error on the ACCommand set: " + failure);
+							console.log("AMB: There was an error on the ACCommand set: " + failure.message);
 						}
 				);
 			} catch (ex) {
@@ -976,7 +976,7 @@ CarIndicator.prototype._mappingTable = {
 							}
 						},
 						function (failure) {
-							console.log("AMB: There was an error on the RecircReq set: " + failure);
+							console.log("AMB: There was an error on the RecircReq set: " + failure.message);
 						}
 				);
 			} catch (ex) {
@@ -1017,7 +1017,7 @@ CarIndicator.prototype._mappingTable = {
 							}
 						},
 						function (failure) {
-							console.log("AMB: There was an error on the FrontTSetRightCmd set: " + failure);
+							console.log("AMB: There was an error on the FrontTSetRightCmd set: " + failure.message);
 						}
 				);
 			} catch (ex) {
@@ -1055,7 +1055,7 @@ CarIndicator.prototype._mappingTable = {
 							}
 						},
 						function (failure) {
-							console.log("AMB: There was an error on the FrontTSetLeftCmd set: " + failure);
+							console.log("AMB: There was an error on the FrontTSetLeftCmd set: " + failure.message);
 						}
 				);
 			} catch (ex) {
@@ -1094,7 +1094,7 @@ CarIndicator.prototype._mappingTable = {
 							}
 						},
 						function (failure) {
-							console.log("AMB: There was an error on the FrontBlwrSpeedCmd set: " + failure);
+							console.log("AMB: There was an error on the FrontBlwrSpeedCmd set: " + failure.message);
 						}
 				);
 			} catch (ex) {
@@ -1141,7 +1141,7 @@ CarIndicator.prototype._mappingTable = {
 							}
 						},
 						function (failure) {
-							console.log("AMB: There was an error on the HeatedSeatFRRequest set: " + failure);
+							console.log("AMB: There was an error on the HeatedSeatFRRequest set: " + failure.message);
 						}
 				);
 			} catch (ex) {
@@ -1157,7 +1157,7 @@ CarIndicator.prototype._mappingTable = {
 								GlobalSelf._mappingTable["HeatedSeatFRRequest"].curValue = value.value;
 							},
 							function (error) {
-								console.log("AMB: There was an error on the HeatedSeatFRRequest get: " + error);
+								console.log("AMB: There was an error on the HeatedSeatFRRequest get: " + error.message);
 							});
 				}
 			} catch (ex) {
@@ -1202,7 +1202,7 @@ CarIndicator.prototype._mappingTable = {
 							}
 						},
 						function (failure) {
-							console.log("AMB: There was an error on the HeatedSeatFLRequest set: " + failure);
+							console.log("AMB: There was an error on the HeatedSeatFLRequest set: " + failure.message);
 						}
 				);
 			} catch (ex) {
@@ -1218,7 +1218,7 @@ CarIndicator.prototype._mappingTable = {
 								GlobalSelf._mappingTable["HeatedSeatFLRequest"].curValue = value.value;
 							},
 							function (error) {
-								console.log("AMB: There was an error on the HeatedSeatFLRequest get: " + error);
+								console.log("AMB: There was an error on the HeatedSeatFLRequest get: " + error.message);
 							});
 				}
 			} catch (ex) {
@@ -1254,7 +1254,7 @@ CarIndicator.prototype._mappingTable = {
 							}
 						},
 						function (failure) {
-							console.log("AMB: There was an error on the FLHSDistrCmd set: " + failure);
+							console.log("AMB: There was an error on the FLHSDistrCmd set: " + failure.message);
 						}
 				);
 			} catch (ex) {
@@ -1290,7 +1290,7 @@ CarIndicator.prototype._mappingTable = {
 							}
 						},
 						function (failure) {
-							console.log("AMB: There was an error on the FRHSDistrCmd set: " + failure);
+							console.log("AMB: There was an error on the FRHSDistrCmd set: " + failure.message);
 						}
 				);
 			} catch (ex) {

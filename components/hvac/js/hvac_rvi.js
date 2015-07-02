@@ -198,7 +198,7 @@ function sendCurrentValues(){
 				continue;
 
 			if(currentStatus[hvacServices[v].indicator_name] != undefined){
-				console.log("Name: " + hvacServices[v].name + " Current Val" + currentStatus[hvacServices[v].indicator_name]);
+				console.log("Name: " + hvacServices[v].name + " Current Val: " + currentStatus[hvacServices[v].indicator_name]);
 				sendRVIHVAC(hvacServices[v].name, currentStatus[hvacServices[v].indicator_name])
 			}
 		}
