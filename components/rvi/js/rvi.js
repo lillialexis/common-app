@@ -137,41 +137,65 @@ rviSettingsPage.saveSettings = function () {
     formattedSettings = {"vin": vin};
 
     rvi.setRviSettings(formattedSettings);
-
+    rvi.setVin(vin);
     //rviSettingsPage.displayValues();
 };
 
-var rviSettings = function () {
+	//rviSettingsPage.displayValues();
+}
 
+var rviSettings = function () {
     self = this;
     this.loaded = new $.Deferred();
     this.comm = new RVI();
 
-    //Load setting when they're available.
 
+    //Load setting when they're available.
 
     this.getRviSettings = function () {
 
-        Configuration.reload(function () {
+		Configuration.reload(function () {
 
-            var saved = Configuration.get("Settings.rvi");
-            if (saved != undefined) {
-                self.settings = saved;
-            } else {
-                self.settings = {};
-            }
+			var saved = Configuration.get("Settings.rvi");
+			if(saved != undefined){
+				self.settings = saved;
+			}else{
+				self.settings = {};
+			}
 
 
-            //Make sure this is defined if it hasn't been previously.
-            if (self.settings.services == undefined) self.settings.services = [];
 
-            //resolve the promise for initial setup.
-            if (self.loaded.state() != "resolved") {
-                self.loaded.resolve();
-            }
-        });
 
-    };
+			//Make sure this is defined if it hasn't been previously.
+			if(self.settings.services == undefined) self.settings.services = [];
+
+			//resolve the promise for initial setup.
+			self.getVin().done(function () {
+				if (self.loaded.state() != "resolved") {
+					self.loaded.resolve();
+				}
+			});
+		});
+
+	};
+
+	this.setRviSettings = function(settings){
+		console.log("Saving entered values");
+
+		if(settings == undefined){
+			console.log("Not settings provided");
+			return false;
+		}
+
+		Configuration.set("Settings.rvi",settings);
+		Configuration.save();
+
+		this.getRviSettings();
+	};
+
+   	this.rviError = function(message){
+    	console.log(message);
+    }
 
     this.setRviSettings = function (settings) {
         console.log("Saving entered values");
@@ -187,38 +211,71 @@ var rviSettings = function () {
         this.getRviSettings();
     };
 
-    this.rviError = function (message) {
-        console.log(message);
-    };
+	this.getVin = function () {
+      var vinRetrieved = new $.Deferred();
+      var vin = "";
+      tizen.filesystem.resolve("documents/vin", function (file) {
+          file.openStream("r", function (fs) {
+              self.settings.vin = fs.read(file.fileSize);
+              vinRetrieved.resolve();
+          });
+      },function(errorResponse) {
+          vinRetrieved.reject(errorResponse.message);
+      });
+      return vinRetrieved;
+  };
 
-    this.rviConnect = function (message) {
-        console.log("RVI Connected: " + message);
-        depenancyMet("rvi.loaded");
-    };
+  this.setVin = function (vin) {
 
-    this.wsConnect = function () {
-        self.comm.on_connect = self.rviConnect;
-        self.comm.on_error   = self.rviError;
+      var vinWrite = new $.Deferred();
+      tizen.filesystem.resolve("documents/vin", function (file) {
 
-        self.comm.connect("ws://127.0.0.1:8818/websession");//, self.rviConnect, self.rviError);
-    };
+          file.openStream("w", function (fs) {
+              console.log(fs.write(vin.trim() + "\n"));
 
-    this.rviRegisterServices = function (serviceList) {
-        console.log("Registering RVI services");
-        for (service in serviceList) {
-            // If this is not in settings and we want it to be
-            if (self.settings.services.indexOf(serviceList[service]) == -1) {
-                self.comm.register_service(serviceList[service].name, serviceList[service].callback);
-                console.log("Registering " + serviceList[service].name);
-            }
-        }
+          }, function (writeError){
+              console.log("Error Writing to file");
+              console.log(writeError.message);
+          });
+      },function (error){
+          console.log("=== Error message for file resolve on setVin ===");
+          console.log(error.message);
+      });
+  };
+	this.rviError = function (message) {
+     console.log(message);
+ };
 
-        Configuration.save("Settings.rvi", self.settings);
-    };
+ this.rviConnect = function (message) {
+     console.log("RVI Connected: " + message);
+     depenancyMet("rvi.loaded");
+ };
 
-    this.getRviSettings();
+ this.wsConnect = function () {
+     self.comm.on_connect = self.rviConnect;
+     self.comm.on_error = self.rviError;
+
+     self.comm.connect("ws://127.0.0.1:8818/websession");//, self.rviConnect, self.rviError);
+ };
+
+ this.rviRegisterServices = function (serviceList) {
+     console.log("Registering RVI services");
+     for (service in serviceList) {
+         // If this is not in settings and we want it to be
+         if (self.settings.services.indexOf(serviceList[service]) == -1) {
+             self.comm.register_service(serviceList[service].name, serviceList[service].callback);
+             console.log("Registering " + serviceList[service].name);
+         }
+     }
+
+     Configuration.save("Settings.rvi", self.settings);
+ };
+
+ this.getRviSettings();
 };
 
+
+// Singleton
 function RVI() {
 
     console.log("Starting up service RVI");
